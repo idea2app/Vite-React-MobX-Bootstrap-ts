@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/Vite-React-MobX-Bootstrap-ts/sw.js', { scope: '/Vite-React-MobX-Bootstrap-ts/' })})}
