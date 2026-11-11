@@ -26,6 +26,7 @@ export class ProjectModel {
                 body.owner.login,
                 body.name
             );
+
             this.list.push({ ...body, logo });
         }
 

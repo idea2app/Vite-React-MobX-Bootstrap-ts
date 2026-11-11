@@ -34,6 +34,7 @@ export const DTCard: FC<{ task: DownloadTask }> = observer(({ task }) => (
                 {task.percent < 100 &&
                     (task.executing ? (
                         <Button
+                            variant="solid"
                             size="sm"
                             theme="warning"
                             onClick={() => task.pause()}
@@ -42,6 +43,7 @@ export const DTCard: FC<{ task: DownloadTask }> = observer(({ task }) => (
                         </Button>
                     ) : (
                         <Button
+                            variant="solid"
                             size="sm"
                             theme="success"
                             onClick={() => task.start()}
@@ -50,6 +52,7 @@ export const DTCard: FC<{ task: DownloadTask }> = observer(({ task }) => (
                         </Button>
                     ))}
                 <Button
+                    variant="solid"
                     size="sm"
                     theme="danger"
                     disabled={task.executing}

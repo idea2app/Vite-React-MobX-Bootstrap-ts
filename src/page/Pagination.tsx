@@ -17,7 +17,6 @@ export class PaginationPage extends Component {
         return [
             {
                 key: 'full_name',
-                tools: {},
                 renderHead: t('repository_name'),
                 renderBody: ({ html_url, full_name }) => (
                     <a target="_blank" href={html_url} rel="noreferrer">
@@ -25,20 +24,10 @@ export class PaginationPage extends Component {
                     </a>
                 )
             },
-            {
-                key: 'homepage',
-                type: 'url',
-                tools: {},
-                renderHead: t('home_page')
-            },
-            {
-                key: 'language',
-                tools: {},
-                renderHead: t('programming_language')
-            },
+            { key: 'homepage', type: 'url', renderHead: t('home_page') },
+            { key: 'language', renderHead: t('programming_language') },
             {
                 key: 'topics',
-                tools: {},
                 renderHead: t('topic'),
                 renderBody: ({ topics }) => (
                     <>
@@ -60,7 +49,6 @@ export class PaginationPage extends Component {
             {
                 key: 'stargazers_count',
                 type: 'number',
-                tools: {},
                 renderHead: t('star_count')
             }
         ];
@@ -71,13 +59,13 @@ export class PaginationPage extends Component {
             <Container style={{ height: '91vh' }}>
                 <RestTable
                     className="h-100 text-center"
-                    columns={this.columns}
-                    store={repositoryStore}
-                    translator={i18n}
                     striped
                     hover
                     editable
                     deletable
+                    columns={this.columns}
+                    store={repositoryStore}
+                    translator={i18n}
                     onCheck={console.info}
                 />
             </Container>

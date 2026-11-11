@@ -1,10 +1,7 @@
+packages:
+  - .
+autoInstallPeers: false
+minimumReleaseAge: 0
 allowBuilds:
   '@swc/core': true
   core-js: true
-
-minimumReleaseAgeExclude:
-  - mobx@7.1.6
-  - vite@8.3.8
-
-patchedDependencies:
-  mobx-restful-table@3.0.0-rc.0: patches/mobx-restful-table@3.0.0-rc.0.patch

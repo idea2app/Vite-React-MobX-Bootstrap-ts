@@ -13,9 +13,3 @@ declare module '*.mdx' {
 declare module 'browser-unhandled-rejection' {
     export const auto: () => void;
 }
-
-declare module '@editorjs/*' {
-    const Plugin: import('react').ComponentClass;
-
-    export default Plugin;
-}

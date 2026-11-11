@@ -25,7 +25,6 @@ export class GitLogo extends Component<GitLogoProps> {
             const { src } = await this.loadImage(
                 `https://github.com/${name}.png`
             );
-
             this.path = src;
         }
     }

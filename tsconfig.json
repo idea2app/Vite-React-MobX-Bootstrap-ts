@@ -1,19 +1,18 @@
 {
     "compilerOptions": {
+        "allowJs": true,
+        "checkJs": true,
         "target": "ES6",
         "module": "ES2020",
-        "moduleResolution": "Bundler",
+        "moduleResolution": "bundler",
         "allowSyntheticDefaultImports": true,
         "resolveJsonModule": true,
         "useDefineForClassFields": true,
-        "checkJs": true,
-        "allowJs": true,
         "jsx": "react-jsx",
         "lib": ["ES2023", "DOM", "DOM.Iterable"],
         "skipLibCheck": true,
-        "noEmit": true,
-        "types": ["node", "vite/client", "vite-plugin-pwa/client"],
-        "outDir": "dist"
+        "outDir": "./dist/",
+        "types": ["node", "vite/client", "vite-plugin-pwa/client"]
     },
     "include": ["src/**/*", "*.ts", "*.mts"]
 }

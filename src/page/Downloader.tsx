@@ -13,9 +13,7 @@ import { formToJSON } from 'web-utility';
 
 import { Downloader } from '../component/Downloader';
 import { downloader } from '../model/service';
-import { i18n } from '../model/Translation';
-
-const { t } = i18n;
+import { t } from '../model/Translation';
 
 const addTask = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -44,14 +42,16 @@ export const DownloaderPage: FC = observer(() => (
                 </FormLabel>
                 <FormControl
                     id="download-url"
-                    placeholder="URL"
                     type="url"
                     name="path"
                     required
+                    placeholder="URL"
                 />
             </FormFloatingLabel>
 
-            <Button type="submit">+</Button>
+            <Button variant="solid" type="submit">
+                +
+            </Button>
         </Form>
 
         <Downloader />

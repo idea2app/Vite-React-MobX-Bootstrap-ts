@@ -14,7 +14,7 @@ import { GitRepository } from 'mobx-github';
 import { observer } from 'mobx-react';
 import { FC } from 'react';
 
-import { i18n } from '../../model/Translation';
+import { t } from '../../model/Translation';
 import { GitLogo } from './Logo';
 
 export interface GitCardProps
@@ -67,8 +67,13 @@ export const GitCard: FC<GitCardProps> = observer(
             </CardBody>
             <CardFooter className="d-flex justify-content-between align-items-center">
                 {homepage && (
-                    <Button theme="success" target="_blank" href={homepage}>
-                        {i18n.t('home_page')}
+                    <Button
+                        variant="solid"
+                        theme="success"
+                        target="_blank"
+                        href={homepage}
+                    >
+                        {t('home_page')}
                     </Button>
                 )}
             </CardFooter>
