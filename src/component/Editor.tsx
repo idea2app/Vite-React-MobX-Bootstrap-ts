@@ -4,22 +4,22 @@ import Image from '@editorjs/image';
 import LinkTool from '@editorjs/link';
 import List from '@editorjs/list';
 import Quote from '@editorjs/quote';
-import { ToolConstructable } from '@editorjs/editorjs';
-import { WrapperProps } from '@react-editor-js/core';
+import { ComponentProps, FC } from 'react';
 import { createReactEditorJS } from 'react-editor-js';
-import { FC } from 'react';
-
-const Tools: Record<string, ToolConstructable> = {
-  list: List,
-  code: Code,
-  linkTool: LinkTool,
-  image: Image,
-  header: Header,
-  quote: Quote
-};
 
 const Core = createReactEditorJS();
+const Tools = {
+    list: List,
+    code: Code,
+    linkTool: LinkTool,
+    image: Image,
+    header: Header,
+    quote: Quote
+};
 
-export const EditorJS: FC<WrapperProps> = props => (
-  <Core tools={Tools} {...props} />
+export const EditorJS: FC<
+    Omit<ComponentProps<typeof Core>, 'tools'>
+> = props => (
+    // @ts-expect-error: https://github.com/editor-js/link/issues/88
+    <Core tools={Tools} {...props} />
 );

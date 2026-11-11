@@ -1,23 +1,21 @@
 declare module '*.less' {
-  const map: Record<string, string>;
+    const map: Record<string, string>;
 
-  export default map;
+    export = map;
 }
 
 declare module '*.mdx' {
-  const MDXComponent: import('react').ComponentType;
+    const component: import('react').ComponentType;
 
-  export default MDXComponent;
+    export default component;
 }
 
-declare module 'idea-react/dist/style.css';
-
 declare module 'browser-unhandled-rejection' {
-  export const auto: () => void;
+    export const auto: () => void;
 }
 
 declare module '@editorjs/*' {
-  const Plugin: import('@editorjs/editorjs').ToolConstructable;
+    const Plugin: import('react').ComponentClass;
 
-  export default Plugin;
+    export default Plugin;
 }
