@@ -25,8 +25,8 @@ inspired by [WebCell scaffold][5] and built with [Idea React][10].
 
 1. [Component samples](src/page/Component.tsx)
 2. Rich-text editor
-    - HTML version
-    - [JSON version](src/component/Editor.tsx)
+   - HTML version
+   - [JSON version](src/component/Editor.tsx)
 3. [GitHub logo](src/component/Git/Logo.tsx)
 4. [GitHub card](src/component/Git/Card.tsx)
 5. Paginated repository table and infinite-scroll list
@@ -36,8 +36,8 @@ inspired by [WebCell scaffold][5] and built with [Idea React][10].
 ## Best practice
 
 1. Install GitHub apps in your organization or account:
-    1. [Probot settings](https://github.com/apps/settings) for issue labels and pull request rules
-    2. [PR badge](https://pullrequestbadge.com/) to enable online VS Code editing from pull requests
+   1. [Probot settings](https://github.com/apps/settings) for issue labels and pull request rules
+   2. [PR badge](https://pullrequestbadge.com/) to enable online VS Code editing from pull requests
 2. Use the **Use this template** button to create a repository in the app-installed namespace.
 3. Open the repository in [GitHub Codespaces][7] for an online VS Code environment.
 4. Set [Vercel variables][16] as [repository secrets][17] to create an independent preview URL for each commit.

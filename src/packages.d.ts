@@ -1,15 +1,15 @@
 declare module '*.less' {
-    const map: Record<string, string>;
+  const map: Record<string, string>;
 
-    export = map;
+  export = map;
 }
 
 declare module '*.mdx' {
-    const component: import('react').ComponentType;
+  const component: import('react').ComponentType;
 
-    export default component;
+  export default component;
 }
 
 declare module 'browser-unhandled-rejection' {
-    export const auto: () => void;
+  export const auto: () => void;
 }

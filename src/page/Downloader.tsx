@@ -1,10 +1,10 @@
 import {
-    Button,
-    Container,
-    Form,
-    FormControl,
-    FormFloatingLabel,
-    FormLabel
+  Button,
+  Container,
+  Form,
+  FormControl,
+  FormFloatingLabel,
+  FormLabel
 } from 'idea-react';
 import { textJoin } from 'mobx-i18n';
 import { observer } from 'mobx-react';
@@ -16,44 +16,41 @@ import { downloader } from '../model/service';
 import { t } from '../model/Translation';
 
 const addTask = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  event.preventDefault();
 
-    const form = event.currentTarget;
-    const { path } = formToJSON(form);
+  const form = event.currentTarget;
+  const { path } = formToJSON(form);
 
-    await downloader
-        .createTask(path as string)
-        .start({ chunkSize: 1024 ** 2 / 2 });
+  await downloader
+    .createTask(path as string)
+    .start({ chunkSize: 1024 ** 2 / 2 });
 
-    form.reset();
+  form.reset();
 };
 
 export const DownloaderPage: FC = observer(() => (
-    <Container>
-        <h1 className="my-4">{textJoin(t('downloader'), t('examples'))}</h1>
+  <Container>
+    <h1 className="my-4">{textJoin(t('downloader'), t('examples'))}</h1>
 
-        <Form
-            className="d-flex align-items-center gap-3 mb-3"
-            onSubmit={addTask}
-        >
-            <FormFloatingLabel className="flex-fill">
-                <FormLabel htmlFor="download-url" plain>
-                    URL
-                </FormLabel>
-                <FormControl
-                    id="download-url"
-                    type="url"
-                    name="path"
-                    required
-                    placeholder="URL"
-                />
-            </FormFloatingLabel>
+    <Form className="d-flex align-items-center gap-3 mb-3" onSubmit={addTask}>
+      <FormFloatingLabel className="flex-fill">
+        <FormLabel htmlFor="download-url" plain>
+          URL
+        </FormLabel>
+        <FormControl
+          id="download-url"
+          type="url"
+          name="path"
+          required
+          placeholder="URL"
+        />
+      </FormFloatingLabel>
 
-            <Button variant="solid" type="submit">
-                +
-            </Button>
-        </Form>
+      <Button variant="solid" type="submit">
+        +
+      </Button>
+    </Form>
 
-        <Downloader />
-    </Container>
+    <Downloader />
+  </Container>
 ));

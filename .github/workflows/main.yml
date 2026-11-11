@@ -1,47 +1,47 @@
 name: CI & CD
 on:
-    push:
-        branches:
-            - '**'
+  push:
+    branches:
+      - '**'
 jobs:
-    Build-and-Deploy:
-        runs-on: ubuntu-latest
-        permissions:
-            contents: write
-        env:
-            VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-            VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-            VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-        steps:
-            - uses: actions/checkout@v7
+  Build-and-Deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - uses: actions/checkout@v7
 
-            - uses: pnpm/action-setup@v6
-              with:
-                  version: 12
-            - uses: actions/setup-node@v7
-              with:
-                  node-version: 26
-                  cache: pnpm
-            - name: Install & Build
-              run: |
-                  pnpm i --frozen-lockfile
-                  pnpm build
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 12
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 26
+          cache: pnpm
+      - name: Install & Build
+        run: |
+          pnpm i --frozen-lockfile
+          pnpm build
 
-            - name: Deploy to GitHub pages
-              uses: peaceiris/actions-gh-pages@v4
-              if: github.ref == 'refs/heads/main'
-              with:
-                  publish_dir: ./dist
-                  personal_token: ${{ secrets.GITHUB_TOKEN }}
-                  force_orphan: true
+      - name: Deploy to GitHub pages
+        uses: peaceiris/actions-gh-pages@v4
+        if: github.ref == 'refs/heads/main'
+        with:
+          publish_dir: ./dist
+          personal_token: ${{ secrets.GITHUB_TOKEN }}
+          force_orphan: true
 
-            - name: Deploy to Vercel
-              uses: amondnet/vercel-action@v42
-              if: ${{ env.VERCEL_TOKEN && env.VERCEL_ORG_ID && env.VERCEL_PROJECT_ID }}
-              with:
-                  vercel-token: ${{ secrets.VERCEL_TOKEN }}
-                  github-token: ${{ secrets.GITHUB_TOKEN }}
-                  vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-                  vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-                  working-directory: ./dist
-                  vercel-args: ${{ github.ref == 'refs/heads/main' && '--prod' || '' }}
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v42
+        if: ${{ env.VERCEL_TOKEN && env.VERCEL_ORG_ID && env.VERCEL_PROJECT_ID }}
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          working-directory: ./dist
+          vercel-args: ${{ github.ref == 'refs/heads/main' && '--prod' || '' }}

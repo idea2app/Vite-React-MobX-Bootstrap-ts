@@ -1,18 +1,18 @@
 {
-    "compilerOptions": {
-        "allowJs": true,
-        "checkJs": true,
-        "target": "ES6",
-        "module": "ES2020",
-        "moduleResolution": "bundler",
-        "allowSyntheticDefaultImports": true,
-        "resolveJsonModule": true,
-        "useDefineForClassFields": true,
-        "jsx": "react-jsx",
-        "lib": ["ES2023", "DOM", "DOM.Iterable"],
-        "skipLibCheck": true,
-        "outDir": "./dist/",
-        "types": ["node", "vite/client", "vite-plugin-pwa/client"]
-    },
-    "include": ["src/**/*", "*.ts", "*.mts"]
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "target": "ES6",
+    "module": "ES2020",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "useDefineForClassFields": true,
+    "jsx": "react-jsx",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "skipLibCheck": true,
+    "outDir": "./dist/",
+    "types": ["node", "vite/client", "vite-plugin-pwa/client"]
+  },
+  "include": ["src/**/*", "*.ts", "*.mts"]
 }
