@@ -7,6 +7,8 @@ export default {
   source_code: '源代码',
   component: '组件',
   pagination: '分页',
+  chart: '图表',
+  downloader: '下载器',
   powered_by: '强力驱动自',
   documentation: '文档',
   learn: '学习',
@@ -19,6 +21,7 @@ export default {
   cancel: '取消',
   edit: '编辑',
   delete: '删除',
+  view: '查看',
   total_x_rows: ({ totalCount }: { totalCount: number }) =>
     `共 ${totalCount} 行`,
   sure_to_delete_x: ({ keys }: { keys: IDType[] }) =>
@@ -31,5 +34,8 @@ export default {
   // Scroll List
   scroll_list: '滚动列表',
   load_more: '加载更多……',
-  no_more: '没有更多'
+  no_more: '没有更多',
+  repositories: '个仓库',
+  previous: '上一页',
+  next: '下一页'
 } as const;

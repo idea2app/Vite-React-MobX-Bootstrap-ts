@@ -7,6 +7,8 @@ export default {
   source_code: 'Source Code',
   component: 'Component',
   pagination: 'Pagination',
+  chart: 'Chart',
+  downloader: 'Downloader',
   powered_by: 'Powered by',
   documentation: 'Documentation',
   learn: 'Learn',
@@ -19,6 +21,7 @@ export default {
   cancel: 'Cancel',
   edit: 'Edit',
   delete: 'Delete',
+  view: 'View',
   total_x_rows: ({ totalCount }: { totalCount: number }) =>
     `Total ${totalCount} rows`,
   sure_to_delete_x: ({ keys }: { keys: IDType[] }) =>
@@ -31,5 +34,8 @@ export default {
   // Scroll List
   scroll_list: 'Scroll List',
   load_more: 'Load more...',
-  no_more: 'No more'
+  no_more: 'No more',
+  repositories: 'repositories',
+  previous: 'Previous',
+  next: 'Next'
 } as const;

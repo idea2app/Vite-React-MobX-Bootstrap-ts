@@ -1,6 +1,10 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import 'idea-react/dist/style.css';
+
 import { auto } from 'browser-unhandled-rejection';
 import { serviceWorkerUpdate } from 'web-utility';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import { PageFrame } from './page';
 
@@ -12,10 +16,9 @@ self.addEventListener('unhandledrejection', ({ reason }) => {
   if (message) self.alert(message);
 });
 
-const { serviceWorker } = window.navigator,
-  { NODE_ENV = 'development' } = import.meta.env;
+const { serviceWorker } = window.navigator;
 
-if (NODE_ENV !== 'development')
+if (import.meta.env.MODE !== 'development')
   serviceWorker
     ?.register('sw.js')
     .then(serviceWorkerUpdate)
@@ -28,4 +31,8 @@ serviceWorker?.addEventListener('controllerchange', () =>
   window.location.reload()
 );
 
-render(<PageFrame />, document.querySelector('#app'));
+const app = document.querySelector('#app');
+
+if (!app) throw new Error('Application mount point "#app" was not found');
+
+createRoot(app).render(<PageFrame />);

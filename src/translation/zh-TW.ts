@@ -7,6 +7,8 @@ export default {
   source_code: '源代碼',
   component: '元件',
   pagination: '分頁',
+  chart: '圖表',
+  downloader: '下載器',
   powered_by: '強力驅動自',
   documentation: '文檔',
   learn: '學習',
@@ -19,6 +21,7 @@ export default {
   cancel: '取消',
   edit: '編輯',
   delete: '刪除',
+  view: '檢視',
   total_x_rows: ({ totalCount }: { totalCount: number }) =>
     `共 ${totalCount} 行`,
   sure_to_delete_x: ({ keys }: { keys: IDType[] }) =>
@@ -31,5 +34,8 @@ export default {
   // Scroll List
   scroll_list: '滾動列表',
   load_more: '加載更多……',
-  no_more: '沒有更多'
+  no_more: '沒有更多',
+  repositories: '個倉庫',
+  previous: '上一頁',
+  next: '下一頁'
 } as const;

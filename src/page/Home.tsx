@@ -1,76 +1,96 @@
-import { PureComponent } from 'react';
+import { useEffect } from 'react';
 import { observer } from 'mobx-react';
-import { RouteComponentProps, withRouter } from 'react-router-class-tools';
-
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { useSearchParams } from 'react-router-dom';
+import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardImage,
+  CardText,
+  CardTitle,
+  Col,
+  Container,
+  Row
+} from 'idea-react';
 
 import project, { Project } from '../model/Project';
 import { i18n } from '../model/Translation';
 
 const { t } = i18n;
 
-@observer
-class HomePage extends PureComponent<
-  RouteComponentProps<{}, {}, { guest: string }>
-> {
-  componentDidMount() {
+const renderProject = ({
+  id,
+  name,
+  logo,
+  description,
+  homepage,
+  html_url
+}: Project) => (
+  <Col className="mb-3" key={id}>
+    <Card className="h-100">
+      {logo && <CardImage src={logo} alt={`${name} logo`} placement="top" />}
+      <CardBody>
+        <CardTitle>{name}</CardTitle>
+        <CardText>{description}</CardText>
+      </CardBody>
+      <CardFooter className="d-flex justify-content-between">
+        {homepage && (
+          <Button
+            variant="solid"
+            theme="primary"
+            size="sm"
+            target="_blank"
+            href={homepage}
+          >
+            {t('home_page')}
+          </Button>
+        )}
+        <Button
+          variant="solid"
+          theme="success"
+          size="sm"
+          target="_blank"
+          href={html_url}
+        >
+          {t('source_code')}
+        </Button>
+      </CardFooter>
+    </Card>
+  </Col>
+);
+
+const HomePage = observer(() => {
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
     project.getList(
       'facebook/react',
       'microsoft/TypeScript',
       'mobxjs/mobx',
-      'react-bootstrap/react-bootstrap',
+      'idea2app/Idea-React',
       'EasyWebApp/KoAJAX'
     );
-  }
+    return () => project.clearList();
+  }, []);
 
-  componentWillUnmount() {
-    project.clearList();
-  }
+  const guest = searchParams.get('guest');
+  const { list } = project;
 
-  renderProject = ({
-    id,
-    name,
-    logo,
-    description,
-    homepage,
-    html_url
-  }: Project) => (
-    <Col className="mb-3" xs={12} sm={6} md={3} key={id}>
-      <Card className="h-100">
-        <Card.Img variant="top" src={logo} />
-        <Card.Body>
-          <Card.Title>{name}</Card.Title>
-          <Card.Text>{description}</Card.Text>
-        </Card.Body>
-        <Card.Footer className="d-flex justify-content-between">
-          <Button variant="primary" size="sm" target="_blank" href={homepage}>
-            {t('home_page')}
-          </Button>
-          <Button variant="success" size="sm" target="_blank" href={html_url}>
-            {t('source_code')}
-          </Button>
-        </Card.Footer>
-      </Card>
-    </Col>
+  return (
+    <Container fluid="md">
+      <h1 className="my-4">{t('upstream_projects')}</h1>
+
+      {guest && (
+        <h2>
+          {t('welcome')} {guest}!
+        </h2>
+      )}
+      <Row xs={1} sm={2} lg={4}>
+        {list.map(renderProject)}
+      </Row>
+    </Container>
   );
+});
 
-  render() {
-    const { guest } = this.props.query,
-      { list } = project;
-
-    return (
-      <Container fluid="md">
-        <h1 className="my-4">{t('upstream_projects')}</h1>
-
-        {guest && (
-          <h2>
-            {t('welcome')} {guest}!
-          </h2>
-        )}
-        <Row>{list.map(this.renderProject)}</Row>
-      </Container>
-    );
-  }
-}
-
-export default withRouter(HomePage);
+export default HomePage;

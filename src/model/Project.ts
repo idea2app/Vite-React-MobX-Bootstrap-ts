@@ -1,26 +1,27 @@
-import { observable } from 'mobx';
-import { components } from '@octokit/openapi-types';
+import { action, observable, runInAction } from 'mobx';
+import { GitRepository } from 'mobx-github';
 
-import { service } from './service';
+import { repositoryStore } from './service';
 
-export type Project = components['schemas']['minimal-repository'] & {
+export interface Project extends GitRepository {
   logo?: string;
-};
+}
 
 export class ProjectModel {
-  @observable
-  list: Project[] = [];
+  @observable accessor list: Project[] = [];
 
+  @action
   clearList() {
     this.list = [];
+    repositoryStore.clear();
   }
 
   async getList(...names: string[]) {
     for (const name of names) {
-      const { body } = await service.get<Project>(`repos/${name}`);
-
+      const body = await repositoryStore.getOne(name);
       const logo = await ProjectModel.getLogo(body.owner.login, body.name);
-      this.list.push({ ...body, logo });
+
+      runInAction(() => this.list.push({ ...body, logo }));
     }
     return this.list;
   }

@@ -1,16 +1,17 @@
 {
   "compilerOptions": {
-    "target": "ES5",
-    "module": "ES2020",
-    "moduleResolution": "Node",
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
-    "experimentalDecorators": true,
+    "useDefineForClassFields": true,
+    "allowImportingTsExtensions": true,
     "jsx": "react-jsx",
-    "lib": ["ES2020", "DOM"],
-    "sourceMap": true,
-    "outDir": "./dist/",
-    "types": ["vite/client", "vite-plugin-pwa/client"]
+    "lib": ["ES2023", "DOM"],
+    "skipLibCheck": true,
+    "noEmit": true,
+    "types": ["vite/client", "vite-plugin-pwa/client", "node"]
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "*.ts", "*.mts"]
 }

@@ -1,69 +1,20 @@
-import { averageOf, buildURLData } from 'web-utility';
-import { memoize } from 'lodash';
-import { ListModel, toggle } from 'mobx-restful';
-import { components } from '@octokit/openapi-types';
+import { RepositoryModel as GitHubRepositoryModel } from 'mobx-github';
 
-import { service } from './service';
+export class RepositoryModel extends GitHubRepositoryModel {
+  async loadPageAt(pageIndex: number) {
+    if (pageIndex < 0 || (this.pageCount > 0 && pageIndex >= this.pageCount))
+      throw new RangeError(`Repository page index ${pageIndex} is out of range`);
 
-type Repository = components['schemas']['minimal-repository'];
+    if (this.downloading > 0) return;
 
-export interface GitRepository extends Repository {
-  languages?: string[];
-}
-export type Organization = components['schemas']['organization-full'];
-
-const getGitLanguages = memoize(async (URI: string) => {
-  const { body: languageCount } = await service.get<Record<string, number>>(
-    `repos/${URI}/languages`
-  );
-
-  const languageAverage = averageOf(...Object.values(languageCount!));
-
-  const languageList = Object.entries(languageCount!)
-    .filter(([_, score]) => score >= languageAverage)
-    .sort(([_, a], [__, b]) => b - a);
-
-  return languageList.map(([name]) => name);
-});
-
-export class RepositoryModel extends ListModel<GitRepository> {
-  client = service;
-  baseURI = 'orgs/idea2app/repos';
-  indexKey = 'full_name' as const;
-
-  @toggle('downloading')
-  async getOne(URI: string) {
-    const { body } = await this.client.get<Repository>(`repos/${URI}`);
-
-    return (this.currentOne = {
-      ...body!,
-      languages: await getGitLanguages(URI)
-    });
+    await this.getList(this.filter, pageIndex, this.pageSize);
   }
 
-  async loadPage(page: number, per_page: number) {
-    const { body: list } = await this.client.get<Repository[]>(
-      `${this.baseURI}?${buildURLData({
-        type: 'public',
-        sort: 'pushed',
-        page,
-        per_page
-      })}`
-    );
-    const pageData = await Promise.all(
-      list!.map(async ({ full_name, ...item }) => ({
-        ...item,
-        full_name,
-        languages: await getGitLanguages(full_name)
-      }))
-    );
-    const [_, organization] = this.baseURI.split('/');
+  async loadNextPage() {
+    if (this.downloading > 0 || this.noMore) return;
 
-    const { body } = await this.client.get<Organization>(
-      `orgs/${organization}`
-    );
-    return { pageData, totalCount: body!.public_repos };
+    await this.loadPageAt(this.pageIndex + 1);
   }
 }
 
-export default new RepositoryModel();
+export default RepositoryModel;
