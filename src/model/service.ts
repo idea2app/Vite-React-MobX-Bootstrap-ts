@@ -1,6 +1,5 @@
-import { HTTPClient } from 'koajax';
+import { Downloader } from 'mobx-downloader';
+import { RepositoryModel } from 'mobx-github';
 
-export const service = new HTTPClient({
-  baseURI: 'https://api.github.com/',
-  responseType: 'json'
-});
+export const repositoryStore = new RepositoryModel('idea2app');
+export const downloader = new Downloader();

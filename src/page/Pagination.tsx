@@ -1,15 +1,15 @@
+import { Badge, Container, text2color } from 'idea-react';
 import { computed } from 'mobx';
+import { GitRepository } from 'mobx-github';
 import { observer } from 'mobx-react';
 import { Column, RestTable } from 'mobx-restful-table';
-import { PureComponent } from 'react';
-import { Container, Badge } from 'react-bootstrap';
-// import { text2color } from 'idea-react';
+import { Component } from 'react';
 
-import repositoryStore, { GitRepository } from '../model/Repository';
+import { repositoryStore } from '../model/service';
 import { i18n } from '../model/Translation';
 
 @observer
-export class PaginationPage extends PureComponent {
+export class PaginationPage extends Component {
   @computed
   get columns(): Column<GitRepository>[] {
     const { t } = i18n;
@@ -32,17 +32,16 @@ export class PaginationPage extends PureComponent {
         renderBody: ({ topics }) => (
           <>
             {topics?.map(topic => (
-              // <Badge
-              //     key={topic}
-              //     as="a"
-              //     className="me-2 text-decoration-none"
-              //     bg={text2color(topic, ['light'])}
-              //     target="_blank"
-              //     href={`https://github.com/topics/${topic}`}
-              // >
-              //     {topic}
-              // </Badge>
-              <></>
+              <Badge
+                key={topic}
+                as="a"
+                className="me-2 text-decoration-none"
+                theme={text2color(topic, ['light'])}
+                target="_blank"
+                href={`https://github.com/topics/${topic}`}
+              >
+                {topic}
+              </Badge>
             ))}
           </>
         )
@@ -67,7 +66,7 @@ export class PaginationPage extends PureComponent {
           columns={this.columns}
           store={repositoryStore}
           translator={i18n}
-          onCheck={console.log}
+          onCheck={console.info}
         />
       </Container>
     );

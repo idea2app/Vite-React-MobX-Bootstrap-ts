@@ -1,0 +1,7 @@
+packages:
+  - .
+autoInstallPeers: false
+minimumReleaseAge: 0
+allowBuilds:
+  '@swc/core': true
+  core-js: true

@@ -7,6 +7,8 @@ export default {
   source_code: '源代碼',
   component: '元件',
   pagination: '分頁',
+  chart: '圖表',
+  downloader: '下載器',
   powered_by: '強力驅動自',
   documentation: '文檔',
   learn: '學習',
@@ -14,6 +16,7 @@ export default {
   deploy: '部署',
 
   // REST table
+  view: '查看',
   create: '新增',
   submit: '提交',
   cancel: '取消',

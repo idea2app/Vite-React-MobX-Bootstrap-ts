@@ -1,63 +1,90 @@
-// import { Select, Option } from 'idea-react';
+import {
+  Combobox,
+  ComboboxOption,
+  Container,
+  Drawer,
+  Navbar,
+  NavbarBrand,
+  NavbarNav,
+  NavbarToggler,
+  NavLink
+} from 'idea-react';
+import { action, observable } from 'mobx';
 import { observer } from 'mobx-react';
-import { Navbar, Container, Nav } from 'react-bootstrap';
+import { Component } from 'react';
 
+import { mainNavLinks } from '../meta';
 import { i18n, LanguageName } from '../model/Translation';
-import style from './MainNavigator.module.less';
+import * as style from './MainNavigator.module.less';
 
-export const MainNavigator = observer(() => {
-  const { t, currentLanguage } = i18n;
+@observer
+export class MainNavigator extends Component {
+  @observable accessor open = false;
 
-  return (
-    <Navbar
-      style={{ zIndex: 1030 }}
-      bg="primary"
-      variant="dark"
-      sticky="top"
-      expand="sm"
-      collapseOnSelect
-    >
-      <Container>
-        <Navbar.Brand href=".">
-          <img
-            className={`${style.logo} me-2`}
-            src="https://github.com/react-bootstrap.png"
-          />
-          {document.title}
-        </Navbar.Brand>
+  toggle = action(() => (this.open = !this.open));
 
-        <Navbar.Toggle aria-controls="navbar-inner" />
+  hide = action(() => (this.open = false));
 
-        <Navbar.Collapse id="navbar-inner">
-          <Nav className="me-auto">
-            <Nav.Link className="text-white" href="#/">
-              {t('home_page')}
-            </Nav.Link>
-            <Nav.Link className="text-white" href="#/pagination">
-              {t('pagination')}
-            </Nav.Link>
-            <Nav.Link
-              className="text-white"
-              href="https://github.com/idea2app/Vite-React-MobX-Bootstrap-ts"
-            >
-              {t('source_code')}
-            </Nav.Link>
-          </Nav>
-
-          {/* <Select
-                        value={currentLanguage}
-                        onChange={key =>
-                            i18n.changeLanguage(key as typeof currentLanguage)
-                        }
-                    >
-                        {Object.entries(LanguageName).map(([key, name]) => (
-                            <Option key={key} value={key}>
-                                {name}
-                            </Option>
-                        ))}
-                    </Select> */}
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+  renderContent = () => (
+    <>
+      <NavbarNav className="flex-fill">
+        {mainNavLinks().map(({ title, href }) => (
+          <NavLink key={title} href={href} onClick={this.hide}>
+            {title}
+          </NavLink>
+        ))}
+      </NavbarNav>
+      <Combobox
+        name="language"
+        value={i18n.currentLanguage}
+        onChange={key => i18n.loadLanguages(key as typeof i18n.currentLanguage)}
+      >
+        {Object.entries(LanguageName).map(([key, name]) => (
+          <ComboboxOption key={key} value={key}>
+            {name}
+          </ComboboxOption>
+        ))}
+      </Combobox>{' '}
+    </>
   );
-});
+
+  render() {
+    return (
+      <Navbar
+        className="sticky-top bg-primary"
+        style={{ zIndex: 1030 }}
+        theme="dark"
+        expand="lg"
+      >
+        <Container>
+          <NavbarBrand href=".">
+            <img
+              className={`${style.logo} me-2`}
+              src="https://github.com/idea2app.png"
+              alt=""
+            />
+            {document.title}
+          </NavbarBrand>
+
+          <NavbarToggler
+            aria-label="Toggle navigation"
+            expanded={this.open}
+            onClick={this.toggle}
+          />
+
+          <Drawer
+            className="w-100"
+            bodyClassName="d-flex"
+            title={document.title}
+            responsive="lg"
+            placement="end"
+            open={this.open}
+            onDismiss={this.hide}
+          >
+            {this.renderContent()}
+          </Drawer>
+        </Container>
+      </Navbar>
+    );
+  }
+}

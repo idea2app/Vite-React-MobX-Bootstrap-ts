@@ -1,10 +1,13 @@
 import { auto } from 'browser-unhandled-rejection';
+import { configure } from 'mobx';
+import { createRoot } from 'react-dom/client';
 import { serviceWorkerUpdate } from 'web-utility';
-import { render } from 'react-dom';
 
 import { PageFrame } from './page';
 
 auto();
+
+configure({ enforceActions: 'never' });
 
 self.addEventListener('unhandledrejection', ({ reason }) => {
   const { message } = reason as Error;
@@ -13,7 +16,7 @@ self.addEventListener('unhandledrejection', ({ reason }) => {
 });
 
 const { serviceWorker } = window.navigator,
-  { NODE_ENV = 'development' } = import.meta.env;
+  NODE_ENV = import.meta.env.MODE || 'development';
 
 if (NODE_ENV !== 'development')
   serviceWorker
@@ -28,4 +31,4 @@ serviceWorker?.addEventListener('controllerchange', () =>
   window.location.reload()
 );
 
-render(<PageFrame />, document.querySelector('#app'));
+createRoot(document.querySelector('#app')!).render(<PageFrame />);

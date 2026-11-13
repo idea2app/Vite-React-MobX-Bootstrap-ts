@@ -7,6 +7,8 @@ export default {
   source_code: 'Source Code',
   component: 'Component',
   pagination: 'Pagination',
+  chart: 'Chart',
+  downloader: 'Downloader',
   powered_by: 'Powered by',
   documentation: 'Documentation',
   learn: 'Learn',
@@ -14,6 +16,7 @@ export default {
   deploy: 'Deploy',
 
   // REST table
+  view: 'View',
   create: 'Create',
   submit: 'Submit',
   cancel: 'Cancel',
