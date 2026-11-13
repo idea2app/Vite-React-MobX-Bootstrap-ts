@@ -1,0 +1,1 @@
+export{FileSystemFileHandle,FileSystemFileHandle as default}from"./es6-krwckycj.js";

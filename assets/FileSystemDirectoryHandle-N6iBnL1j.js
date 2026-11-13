@@ -1,0 +1,1 @@
+export{FileSystemDirectoryHandle,FileSystemDirectoryHandle as default}from"./es6-krwckycj.js";
