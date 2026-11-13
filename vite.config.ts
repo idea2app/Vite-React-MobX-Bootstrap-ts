@@ -5,6 +5,7 @@ import { defineConfig, loadEnv } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
 const PWA = VitePWA({
+  devOptions: { enabled: true },
   injectRegister: false,
   manifest: {
     name: 'Vite-React-MobX-Bootstrap-ts',
